@@ -24,7 +24,12 @@ e chiama notifyDataSetChanged() che dice al sistema che la lista è cambiata, e 
 **Struttura del progetto**
 - Movie.kt – È la data class che rappresenta il modello di un film. Contiene i campi id, title e poster, che vengono riempiti automaticamente dai dati JSON ricevuti dall’API.
 - MovieApiInterface.kt – Definizione dell’interfaccia Retrofit
-- MovieApiService.kt – Configurazione del client Retrofit
+  - È un’interfaccia Retrofit dove si definisce la richiesta HTTP da eseguire.
+  - Contiene una funzione getMovieList() annotata con @GET(...) per scaricare la lista dei film popolari da TMDb.
+  - La funzione restituisce un oggetto Call<MovieResponse> che Retrofit userà per gestire la risposta.
+- MovieApiService.kt – Qui viene creato e configurato l’oggetto Retrofit.
+  Specifica l’URL base dell’API (https://api.themoviedb.org) e indica che i dati ricevuti vanno convertiti con Gson.
+  Contiene un metodo getInstance() che restituisce il client Retrofit pronto all’uso in altre parti dell’app.
 - MovieAdapter.kt – È l’adapter che collega i dati (cioè la lista dei film) alla RecyclerView. Si occupa di:
   - disegnare ogni singola riga (film) nella lista
   - mostrare immagine e titolo
@@ -35,3 +40,4 @@ e chiama notifyDataSetChanged() che dice al sistema che la lista è cambiata, e 
   - l’inizializzazione della RecyclerView con l’adapter
   - il comportamento dello switch per filtrare i film piaciuti
   - l’aggiornamento della UI in base alle interazioni dell’utente
+ 
